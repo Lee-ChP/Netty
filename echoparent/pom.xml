@@ -15,7 +15,7 @@
 
     <properties>
         <echoserver.host>localhost</echoserver.host>
-        <echoserver.port>9999</echoserver.port>
+        <echoserver.port>8080</echoserver.port>
     </properties>
 
     <dependencies>
