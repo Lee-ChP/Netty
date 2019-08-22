@@ -19,12 +19,22 @@ public class PacketCodec {
     private static final int MAGIC_NUMBER = 0x19930714;
     public static final PacketCodec INSTANCE = new PacketCodec();
 
+    /**
+     * 如果byte为1 ，那么对应的就是loginRequest登录请求类
+     * 如果byte为2， 那么对应的就是loginResponse登录响应类
+     *
+     * 这个map的作用： 用于序列化与反序列化
+     */
     private final Map<Byte,Class<? extends  Packet>> packetTypeMap;
+
+    /**
+     * 该map的作用： 存储一个序列化的方法，后续根据map值获取反序列化的方法
+     */
     private final Map<Byte,Serializer> serializerMap;
 
     private PacketCodec() {
-        packetTypeMap = new HashMap<Byte, Class<? extends Packet>>();
-        serializerMap = new HashMap<Byte, Serializer>();
+        packetTypeMap = new HashMap<>();
+        serializerMap = new HashMap<>();
 
         packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
@@ -33,6 +43,12 @@ public class PacketCodec {
         serializerMap.put(serializer.getSerializeAlgorithm(), serializer);
     }
 
+    /**
+     * 编码过程
+     * @param byteBufAllocator
+     * @param packet
+     * @return
+     */
     public ByteBuf encode(ByteBufAllocator byteBufAllocator,Packet packet) {
         //创建ByteBufduix
         ByteBuf byteBuf = byteBufAllocator.DEFAULT.ioBuffer();

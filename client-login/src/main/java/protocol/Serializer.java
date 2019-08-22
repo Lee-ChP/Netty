@@ -4,11 +4,6 @@ import protocol.impl.JSONSerializer;
 
 public interface Serializer {
     /**
-     * JSON序列化
-     */
-    byte JSON_SERIALIZE = 1;
-
-    /**
      * 默认序列化方式
      */
     Serializer DEFAULT = new JSONSerializer();
