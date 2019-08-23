@@ -1,6 +1,4 @@
-package protocol;
-
-import protocol.impl.JSONSerializer;
+package protocol.serialization;
 
 public interface Serializer {
     /**

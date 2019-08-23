@@ -1,4 +1,4 @@
-package protocol;
+package protocol.serialization;
 
 /**
  * 协议头部信息 —— 序列化方式

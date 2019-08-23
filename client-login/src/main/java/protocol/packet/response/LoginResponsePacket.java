@@ -1,9 +1,11 @@
-package protocol.impl;
+package protocol.packet.response;
 
 import lombok.Data;
-import protocol.Command;
-import protocol.Packet;
+import lombok.EqualsAndHashCode;
+import protocol.cmd.Command;
+import protocol.packet.Packet;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class LoginResponsePacket  extends Packet {
     private boolean success;

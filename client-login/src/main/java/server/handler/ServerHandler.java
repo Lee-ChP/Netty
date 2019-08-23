@@ -3,17 +3,19 @@ package server.handler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import protocol.Packet;
-import protocol.impl.LoginRequestPacket;
-import protocol.impl.LoginResponsePacket;
-import protocol.impl.PacketCodec;
+import protocol.packet.Packet;
+import protocol.packet.request.LoginRequestPacket;
+import protocol.packet.request.MessageRequestPacket;
+import protocol.packet.response.LoginResponsePacket;
+import protocol.packet.PacketCodec;
+import protocol.packet.response.MessageResponsePacket;
 
 import java.util.Date;
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     public void channelRead(ChannelHandlerContext context, Object msg) {
-        System.out.println(new Date() +": 客户端开始登录......");
+        //System.out.println(new Date() +": 客户端开始登录......");
         ByteBuf buf = (ByteBuf) msg;
 
         Packet packet = PacketCodec.INSTANCE.decode(buf);
@@ -38,7 +40,15 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             //登录响应
             ByteBuf responseByteBuf = PacketCodec.INSTANCE.encode(context.alloc(), loginResponsePacket);
             context.channel().writeAndFlush(responseByteBuf);
-
+        } else if (packet instanceof MessageRequestPacket) {
+            //处理消息
+            MessageRequestPacket messageRequestPacket = (MessageRequestPacket) packet;
+            System.out.println(new Date()+" : 收到客户端消息 ： " + messageRequestPacket.getMessage());
+            //回复
+            MessageResponsePacket messageResponsePacket = new MessageResponsePacket();
+            messageResponsePacket.setMessage("服务端回复[ " + messageRequestPacket.getMessage() + " ]");
+            ByteBuf byteBuf = PacketCodec.INSTANCE.encode(context.alloc(),messageResponsePacket);
+            context.channel().writeAndFlush(byteBuf);
         }
     }
 

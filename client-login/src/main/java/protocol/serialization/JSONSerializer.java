@@ -1,8 +1,6 @@
-package protocol.impl;
+package protocol.serialization;
 
 import com.alibaba.fastjson.JSON;
-import protocol.Serializer;
-import protocol.SerializerAlgorithm;
 
 public class JSONSerializer implements Serializer {
 

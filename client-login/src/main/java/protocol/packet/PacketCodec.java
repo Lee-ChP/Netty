@@ -1,16 +1,18 @@
-package protocol.impl;
+package protocol.packet;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
-import protocol.Packet;
-import protocol.Serializer;
-import protocol.SerializerAlgorithm;
+import protocol.packet.request.MessageRequestPacket;
+import protocol.packet.response.MessageResponsePacket;
+import protocol.serialization.JSONSerializer;
+import protocol.packet.request.LoginRequestPacket;
+import protocol.packet.response.LoginResponsePacket;
+import protocol.serialization.Serializer;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static protocol.Command.LOGIN_REQUEST;
-import static protocol.Command.LOGIN_RESPONSE;
+import static protocol.cmd.Command.*;
 
 /**
  * 编码
@@ -39,15 +41,16 @@ public class PacketCodec {
         packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
 
+        packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
+        packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
+
         Serializer serializer = new JSONSerializer();
         serializerMap.put(serializer.getSerializeAlgorithm(), serializer);
     }
 
     /**
      * 编码过程
-     * @param byteBufAllocator
-     * @param packet
-     * @return
+     * @return 旧方法
      */
     public ByteBuf encode(ByteBufAllocator byteBufAllocator,Packet packet) {
         //创建ByteBufduix
@@ -65,6 +68,13 @@ public class PacketCodec {
         byteBuf.writeBytes(bytes);
         return byteBuf;
     }
+
+    /**
+     * 新的编码方法
+     */
+   /* public void encode(ByteBuf byteBuf, Packet packet) {
+
+    }*/
 
     public Packet decode(ByteBuf byteBuf) {
 

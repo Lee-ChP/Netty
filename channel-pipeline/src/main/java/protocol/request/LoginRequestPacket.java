@@ -1,21 +1,22 @@
-package protocol.impl;
+package protocol.request;
 
 import lombok.Data;
-import protocol.Command;
 import protocol.Packet;
 
-/**
- * 登录请求数据包
- */
+import static protocol.command.Command.LOGIN_REQUEST;
+
+
 @Data
 public class LoginRequestPacket extends Packet {
-
     private String userId;
+
     private String username;
+
     private String password;
 
     @Override
-    public byte getCommand() {
-        return Command.LOGIN_REQUEST;
+    public Byte getCommand() {
+
+        return LOGIN_REQUEST;
     }
 }
