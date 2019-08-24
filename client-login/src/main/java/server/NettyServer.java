@@ -10,7 +10,7 @@ import protocol.packet.codec.PacketDecoder;
 import protocol.packet.codec.PacketEncoder;
 import server.handler.LoginRequestHandler;
 import server.handler.MessageRequestHandler;
-
+import server.spliter.Spliter;
 
 
 import java.util.Date;
@@ -42,7 +42,9 @@ public class NettyServer {
                         ch.pipeline().addLast(new OutHandlerA());
                         ch.pipeline().addLast(new OutHandlerB());
                         ch.pipeline().addLast(new OutHandlerC());*/
-                       ch.pipeline().addLast(new PacketDecoder())
+                       ch.pipeline()
+                               .addLast(new Spliter()) //拆包
+                               .addLast(new PacketDecoder())
                                .addLast(new LoginRequestHandler())
                                .addLast(new MessageRequestHandler())
                                .addLast(new PacketEncoder());

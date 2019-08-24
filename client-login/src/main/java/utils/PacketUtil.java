@@ -19,7 +19,7 @@ import static protocol.cmd.Command.*;
  */
 public class PacketUtil {
 
-    private static final int MAGIC_NUMBER = 0x19930714;
+    public static final int MAGIC_NUMBER = 0x19930714;
 
     private final Map<Byte, Class<? extends Packet>> packetTypeMap;
     private final Map<Byte, Serializer> serializerMap;

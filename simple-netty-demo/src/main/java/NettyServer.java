@@ -3,6 +3,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
@@ -24,7 +25,7 @@ public class NettyServer {
                     @Override
                     protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
                         // 定义新进数据处理逻辑
-                        nioSocketChannel.pipeline().addLast(new FirstServerHandler());
+                        nioSocketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,0, 4)).addLast(new FirstServerHandler());
 
                     }
                 });
@@ -51,9 +52,9 @@ public class NettyServer {
         bootstrap.bind(port).addListener(new GenericFutureListener<Future<? super Void>>() {
             public void operationComplete(Future<? super Void> future) throws Exception {
                 if (future.isSuccess()) {
-                    System.out.printf("端口绑定成功： { %d } ", port);
+                    System.out.printf("端口绑定成功： { %d } %n ", port);
                 } else {
-                    System.out.printf("绑定绑定失败： { %d }, 正在尝试绑定 { %d } 端口 ", port, port+1);
+                    System.out.printf("绑定绑定失败： { %d }, 正在尝试绑定 { %d } 端口 %n ", port, port+1);
                     bind(bootstrap, port+1);
                 }
             }

@@ -3,6 +3,8 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +27,7 @@ public class NettyClient {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         //定义数据处理逻辑
-                        socketChannel.pipeline().addLast(new FirstClientHandler());
+                        socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0 ,4)).addLast(new FirstClientHandler());
                     }
                 });
 

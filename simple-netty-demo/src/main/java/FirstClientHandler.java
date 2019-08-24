@@ -12,11 +12,12 @@ public class FirstClientHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext context) {
         System.out.println(new Date() + " : 客户端写出数据");
 
-        // 1. 获取数据
-        ByteBuf buf = getByByteBuf(context);
-
-        // 2. 写数据
-        context.channel().writeAndFlush(buf);
+        for (int i = 0; i < 1000; i++) {
+            // 1. 获取数据
+            ByteBuf buf = getByByteBuf(context);
+            // 2. 写数据
+            context.channel().writeAndFlush(buf);
+        }
     }
 
     // 客户端读取服务端返回的数据
@@ -34,10 +35,11 @@ public class FirstClientHandler extends ChannelInboundHandlerAdapter {
         ByteBuf buf = context.alloc().buffer();
 
         // 2. 准备数据，指定字符串集为utf-8
-        byte[] bytes = "你好 netty ! ".getBytes(Charset.forName("UTF-8"));
+        byte[] bytes = "你好,欢迎关注你爹地 ! ".getBytes(Charset.forName("UTF-8"));
 
         // 3. 填充数据到ByteBuf
 
+        buf.writeInt(bytes.length);
         buf.writeBytes(bytes);
 
         return buf;
