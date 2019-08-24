@@ -33,7 +33,7 @@ public class PacketCodeC {
         packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
 
         serializerMap = new HashMap<>();
-        Serializer serializer = (Serializer) new JSONSerializer();
+        Serializer serializer = new JSONSerializer();
         serializerMap.put(serializer.getSerializerAlogrithm(), serializer);
     }
 

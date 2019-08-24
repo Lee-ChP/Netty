@@ -7,5 +7,5 @@ public interface SerializerAlgorithm {
     /**
      * fastJson方式
      */
-    byte json =1;
+    byte JSON =1;
 }

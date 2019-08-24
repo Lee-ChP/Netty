@@ -45,8 +45,7 @@ public class NettyClient {
                     }
                 });
 
-        bootstrap.connect(HOST, PORT);
-        //connect(bootstrap, HOST, PORT, MAX_RETRY);
+        connect(bootstrap, HOST, PORT, MAX_RETRY);
     }
 
     private static void connect(Bootstrap bootstrap, String host, int port, int retry) {

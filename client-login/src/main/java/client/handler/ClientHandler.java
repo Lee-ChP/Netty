@@ -15,9 +15,9 @@ import java.util.UUID;
 
 public class ClientHandler extends ChannelInboundHandlerAdapter {
 
+
     @Override
     public void channelActive(ChannelHandlerContext context) {
-        System.out.println(new Date() + " : 正在发送登录请求......");
 
         //创建登录对象
         LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
@@ -32,6 +32,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         context.channel().writeAndFlush(buf);
 
     }
+
 
     @Override
     public void channelRead(ChannelHandlerContext context, Object msg) {
@@ -53,8 +54,4 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         }
 
     }
-
-
-
-
 }

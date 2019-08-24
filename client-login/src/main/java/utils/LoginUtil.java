@@ -2,7 +2,7 @@ package utils;
 
 import io.netty.channel.Channel;
 import io.netty.util.Attribute;
-import protocol.attribute.Attributes;
+import attribute.Attributes;
 
 public class LoginUtil {
 

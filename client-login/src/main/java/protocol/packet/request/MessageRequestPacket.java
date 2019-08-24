@@ -11,7 +11,7 @@ public class MessageRequestPacket extends Packet {
     private String message;
 
     @Override
-    public byte getCommand() {
+    public Byte getCommand() {
         return MESSAGE_REQUEST;
     }
 }

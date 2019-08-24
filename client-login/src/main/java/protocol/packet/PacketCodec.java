@@ -52,9 +52,10 @@ public class PacketCodec {
      * 编码过程
      * @return 旧方法
      */
+
     public ByteBuf encode(ByteBufAllocator byteBufAllocator,Packet packet) {
         //创建ByteBufduix
-        ByteBuf byteBuf = byteBufAllocator.DEFAULT.ioBuffer();
+        ByteBuf byteBuf = byteBufAllocator.ioBuffer();
 
         //序列化登录请求
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
@@ -69,12 +70,13 @@ public class PacketCodec {
         return byteBuf;
     }
 
-    /**
-     * 新的编码方法
-     */
-   /* public void encode(ByteBuf byteBuf, Packet packet) {
 
-    }*/
+/* 新的编码方法
+*/
+
+    public void encode(ByteBuf byteBuf, Packet packet) {
+
+    }
 
     public Packet decode(ByteBuf byteBuf) {
 

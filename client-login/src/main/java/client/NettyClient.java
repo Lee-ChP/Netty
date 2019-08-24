@@ -23,9 +23,10 @@ public class NettyClient {
 
     private static final String HOST = "127.0.0.1";
 
-    private static final int PORT = 8081;
+    private static final int PORT = 8082;
 
     public static void main(String[] args) {
+
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
 
@@ -80,3 +81,4 @@ public class NettyClient {
     }
 
 }
+
