@@ -14,9 +14,11 @@ import java.util.Date;
 //处理登录请求
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginRequestPacket loginRequestPacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginRequestPacket loginRequestPacket){
 
         System.out.println(new Date() + " : 收到客户端的登录请求......");
+
+        //构建响应
         LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
         loginResponsePacket.setVersion(loginRequestPacket.getVersion());
         if (valid(loginRequestPacket)) {
@@ -27,11 +29,10 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
             loginResponsePacket.setSuccess(false);
             System.out.println("登录失败！");
         }
-        //登录响应
         channelHandlerContext.channel().writeAndFlush(loginResponsePacket);
     }
 
     private boolean valid(LoginRequestPacket loginRequestPacket) {
-        return "leecp".equals(loginRequestPacket.getUsername())  && "leecp".equals(loginRequestPacket.getPassword()) && loginRequestPacket.getCommand() == 1;
+        return "Lee".equals(loginRequestPacket.getUsername())  && "19930714".equals(loginRequestPacket.getPassword()) && loginRequestPacket.getCommand() == 1;
     }
 }

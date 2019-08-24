@@ -6,12 +6,12 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import protocol.packet.Packet;
 import protocol.packet.request.LoginRequestPacket;
 import protocol.packet.response.LoginResponsePacket;
-import protocol.packet.PacketCodec;
 import protocol.packet.response.MessageResponsePacket;
 import utils.LoginUtil;
 
 import java.util.Date;
 import java.util.UUID;
+/*
 
 public class ClientHandler extends ChannelInboundHandlerAdapter {
 
@@ -55,3 +55,4 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     }
 }
+*/

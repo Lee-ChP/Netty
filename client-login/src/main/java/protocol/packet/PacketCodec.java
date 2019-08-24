@@ -1,3 +1,4 @@
+/*
 package protocol.packet;
 
 import io.netty.buffer.ByteBuf;
@@ -14,24 +15,30 @@ import java.util.Map;
 
 import static protocol.cmd.Command.*;
 
+*/
 /**
  * 编码
- */
+ *//*
+
 public class PacketCodec {
     private static final int MAGIC_NUMBER = 0x19930714;
     public static final PacketCodec INSTANCE = new PacketCodec();
 
-    /**
+    */
+/**
      * 如果byte为1 ，那么对应的就是loginRequest登录请求类
      * 如果byte为2， 那么对应的就是loginResponse登录响应类
      *
      * 这个map的作用： 用于序列化与反序列化
-     */
+     *//*
+
     private final Map<Byte,Class<? extends  Packet>> packetTypeMap;
 
-    /**
+    */
+/**
      * 该map的作用： 存储一个序列化的方法，后续根据map值获取反序列化的方法
-     */
+     *//*
+
     private final Map<Byte,Serializer> serializerMap;
 
     private PacketCodec() {
@@ -48,10 +55,12 @@ public class PacketCodec {
         serializerMap.put(serializer.getSerializeAlgorithm(), serializer);
     }
 
-    /**
+    */
+/**
      * 编码过程
      * @return 旧方法
-     */
+     *//*
+
 
     public ByteBuf encode(ByteBufAllocator byteBufAllocator,Packet packet) {
         //创建ByteBufduix
@@ -71,8 +80,10 @@ public class PacketCodec {
     }
 
 
-/* 新的编码方法
 */
+/* 新的编码方法
+*//*
+
 
     public void encode(ByteBuf byteBuf, Packet packet) {
 
@@ -111,3 +122,4 @@ public class PacketCodec {
         return packetTypeMap.get(command);
     }
 }
+*/

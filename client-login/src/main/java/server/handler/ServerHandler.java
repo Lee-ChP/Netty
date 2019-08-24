@@ -7,10 +7,10 @@ import protocol.packet.Packet;
 import protocol.packet.request.LoginRequestPacket;
 import protocol.packet.request.MessageRequestPacket;
 import protocol.packet.response.LoginResponsePacket;
-import protocol.packet.PacketCodec;
 import protocol.packet.response.MessageResponsePacket;
 
 import java.util.Date;
+/*
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
@@ -56,3 +56,4 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         return "leecp".equals(loginRequestPacket.getUsername())  && "leecp".equals(loginRequestPacket.getPassword()) && loginRequestPacket.getCommand() == 1;
     }
 }
+*/

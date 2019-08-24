@@ -6,9 +6,11 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-//import server.handler.ServerHandler;
-import server.inboundhandler.*;
-import server.outboundhandler.*;
+import protocol.packet.codec.PacketDecoder;
+import protocol.packet.codec.PacketEncoder;
+import server.handler.LoginRequestHandler;
+import server.handler.MessageRequestHandler;
+
 
 
 import java.util.Date;
@@ -30,7 +32,7 @@ public class NettyServer {
                 .childOption(ChannelOption.TCP_NODELAY, true)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch) {
-                        //nioSocketChannel.pipeline().addLast(new ServerHandler());
+                       /* //nioSocketChannel.pipeline().addLast(new ServerHandler());
                         // inBound，处理读数据的逻辑链
                         ch.pipeline().addLast(new ServerHandlerA());
                         ch.pipeline().addLast(new ServerHandlerB());
@@ -39,7 +41,11 @@ public class NettyServer {
                         // outBound，处理写数据的逻辑链
                         ch.pipeline().addLast(new OutHandlerA());
                         ch.pipeline().addLast(new OutHandlerB());
-                        ch.pipeline().addLast(new OutHandlerC());
+                        ch.pipeline().addLast(new OutHandlerC());*/
+                       ch.pipeline().addLast(new PacketDecoder())
+                               .addLast(new LoginRequestHandler())
+                               .addLast(new MessageRequestHandler())
+                               .addLast(new PacketEncoder());
                     }
                 });
 
