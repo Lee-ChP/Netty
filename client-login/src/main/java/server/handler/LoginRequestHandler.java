@@ -4,6 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.packet.request.LoginRequestPacket;
 import protocol.packet.response.LoginResponsePacket;
+import utils.LoginUtil;
 
 import java.util.Date;
 
@@ -23,11 +24,12 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         loginResponsePacket.setVersion(loginRequestPacket.getVersion());
         if (valid(loginRequestPacket)) {
             loginResponsePacket.setSuccess(true);
-            System.out.println(new Date() + " : 登录成功！");
+            System.out.println("将登录状态设置为true ： ");
+            LoginUtil.markAsLogin(channelHandlerContext.channel());
+
         } else {
             loginResponsePacket.setReason("账户密码校验失败！");
             loginResponsePacket.setSuccess(false);
-            System.out.println("登录失败！");
         }
         channelHandlerContext.channel().writeAndFlush(loginResponsePacket);
     }

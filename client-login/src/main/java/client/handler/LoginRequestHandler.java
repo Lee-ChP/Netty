@@ -15,7 +15,7 @@ public class LoginRequestHandler extends ChannelInboundHandlerAdapter {
         LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
         loginRequestPacket.setUserId(UUID.randomUUID().toString());
         loginRequestPacket.setUsername("Lee");
-        loginRequestPacket.setPassword("19930714");
+        loginRequestPacket.setPassword("199307147");
 
         context.channel().writeAndFlush(loginRequestPacket);
     }

@@ -8,10 +8,10 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import protocol.packet.codec.PacketDecoder;
 import protocol.packet.codec.PacketEncoder;
+import server.handler.AuthHandler;
 import server.handler.LoginRequestHandler;
 import server.handler.MessageRequestHandler;
 import server.spliter.Spliter;
-
 
 import java.util.Date;
 
@@ -42,12 +42,14 @@ public class NettyServer {
                         ch.pipeline().addLast(new OutHandlerA());
                         ch.pipeline().addLast(new OutHandlerB());
                         ch.pipeline().addLast(new OutHandlerC());*/
-                       ch.pipeline()
-                               .addLast(new Spliter()) //拆包
-                               .addLast(new PacketDecoder())
-                               .addLast(new LoginRequestHandler())
-                               .addLast(new MessageRequestHandler())
-                               .addLast(new PacketEncoder());
+                        ch.pipeline().addLast(new Spliter()); //拆包
+                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(new LoginRequestHandler());
+                        //添加登录校验handler，后续handler每一次执行都需要调用一次
+
+                        ch.pipeline().addLast(new AuthHandler());
+                        ch.pipeline().addLast(new MessageRequestHandler());
+                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 

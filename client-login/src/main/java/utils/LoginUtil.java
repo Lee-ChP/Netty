@@ -1,9 +1,8 @@
 package utils;
 
+import attribute.Attributes;
 import io.netty.channel.Channel;
 import io.netty.util.Attribute;
-import attribute.Attributes;
-import status.LoginStatus;
 
 public class LoginUtil {
 
@@ -12,7 +11,9 @@ public class LoginUtil {
      * @param channel
      */
     public static void markAsLogin(Channel channel) {
-        channel.attr(Attributes.LOGIN).set(LoginStatus.isLogin);
+
+        channel.attr(Attributes.LOGIN).set(true);
+
     }
 
     /**
@@ -23,7 +24,7 @@ public class LoginUtil {
     public static boolean hasLogin(Channel channel) {
         Attribute<Boolean> loginAttr = channel.attr(Attributes.LOGIN);
 
-        System.out.println("loginAttr : " + loginAttr);
-        return loginAttr != null;
+        System.out.println("loginAttr.get() : " + loginAttr.get());
+        return loginAttr.get()!= null;
     }
 }
