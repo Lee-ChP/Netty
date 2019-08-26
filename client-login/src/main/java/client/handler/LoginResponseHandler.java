@@ -2,8 +2,10 @@ package client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import protocol.packet.request.LoginRequestPacket;
 import protocol.packet.response.LoginResponsePacket;
-import utils.LoginUtil;
+import session.Session;
+import utils.SessionUtil;
 
 
 /**
@@ -22,7 +24,9 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginResponsePacket loginResponsePacket) {
         if (loginResponsePacket.isSuccess()) {
             System.out.println("登录成功！");
-            LoginUtil.markAsLogin(channelHandlerContext.channel());
+           // LoginUtil.markAsLogin(channelHandlerContext.channel());
+            //登录成功，绑定session
+            SessionUtil.bindSession(new Session(loginResponsePacket.getUserId(),loginResponsePacket.getUserName()),channelHandlerContext.channel());
         } else {
             System.out.println("登录失败 ： " + loginResponsePacket.getReason() );
         }
