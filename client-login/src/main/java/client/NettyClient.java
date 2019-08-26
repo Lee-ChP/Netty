@@ -1,8 +1,12 @@
 package client;
 
-import client.handler.LoginRequestHandler;
+import client.handler.CreateGroupResponseHandler;
 import client.handler.LoginResponseHandler;
+import client.handler.LogoutResponseHandler;
 import client.handler.MessageResponseHandler;
+import console.ConsoleCommand;
+import console.manager.ConsoleCommandManager;
+import console.manager.LoginConsoleCommand;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -48,7 +52,9 @@ public class NettyClient {
                                 .addLast(new PacketDecoder())
                                 //.addLast(new LoginRequestHandler())
                                 .addLast(new LoginResponseHandler())
+                                .addLast(new LogoutResponseHandler())
                                 .addLast(new MessageResponseHandler())
+                                .addLast(new CreateGroupResponseHandler())
                                 .addLast(new PacketEncoder());
                     }
                 });
@@ -75,37 +81,20 @@ public class NettyClient {
 
     //启动控制台线程从控制台获取消息
     private static void startConsoleThread(Channel channel) {
-
-        System.out.println("控制台已经开启！");
+        ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
+        LoginConsoleCommand loginCMD = new LoginConsoleCommand();
+        Scanner scanner = new Scanner(System.in);
         //标识为true则开启控制台
         new Thread(() -> {
-            Scanner sc = new Scanner(System.in);
-            LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
             while (!Thread.interrupted()) {
                 //如果未登录，则登录
                 if (!SessionUtil.hasLogin(channel)) {
-
-                    loginRequestPacket.setUserId(UUID.randomUUID().toString());
-                    loginRequestPacket.setUsername("Lee");
-                    loginRequestPacket.setPassword("19930714");
-
-                    channel.writeAndFlush(loginRequestPacket);
-                    waitForLoginResponse();
+                    loginCMD.exec(scanner,channel);
                 } else {
-                    System.out.printf("输入对方id以及信息: 格式 [id 空格 message] \t");
-                    String userId = sc.next();
-                    String msg = sc.next();
-
-                    channel.writeAndFlush(new MessageRequestPacket(userId, msg));
+                    consoleCommandManager.exec(scanner, channel);
                 }
             }
         }).start();
-    }
-    private static void waitForLoginResponse() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ignored) {
-        }
     }
 }
 

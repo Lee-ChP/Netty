@@ -5,6 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.packet.request.LoginRequestPacket;
 import protocol.packet.response.LoginResponsePacket;
 import session.Session;
+import utils.IDUtil;
 import utils.LoginUtil;
 import utils.SessionUtil;
 
@@ -22,19 +23,16 @@ import java.util.Date;
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginRequestPacket loginRequestPacket){
-
-        System.out.println(new Date() + " : 收到客户端的登录请求......");
-        System.out.println("请求用户信息 ： uid = " + loginRequestPacket.getUserId());
-
-        //构建响应
         LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
         loginResponsePacket.setVersion(loginRequestPacket.getVersion());
-        loginResponsePacket.setUserId(loginRequestPacket.getUserId());
         loginResponsePacket.setUserName(loginRequestPacket.getUsername());
+
         if (valid(loginRequestPacket)) {
             loginResponsePacket.setSuccess(true);
-            System.out.println("将登录状态设置为true ： ");
-           // LoginUtil.markAsLogin(channelHandlerContext.channel());
+            String userId = IDUtil.randomId();
+            loginResponsePacket.setUserId(userId);
+            System.out.println("[ " + loginRequestPacket.getUsername() + " 登录成功 ！]");
+
             SessionUtil.bindSession(new Session(loginResponsePacket.getUserId(),loginResponsePacket.getUserName()),channelHandlerContext.channel());
 
         } else {
@@ -45,7 +43,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
     }
 
     private boolean valid(LoginRequestPacket loginRequestPacket) {
-        return "Lee".equals(loginRequestPacket.getUsername())  && "19930714".equals(loginRequestPacket.getPassword()) && loginRequestPacket.getCommand() == 1;
+        return true;
     }
 
     //退出登录解除绑定

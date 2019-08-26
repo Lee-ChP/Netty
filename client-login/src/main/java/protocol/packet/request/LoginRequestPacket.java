@@ -10,7 +10,6 @@ import protocol.packet.Packet;
 @Data
 public class LoginRequestPacket extends Packet {
 
-    private String userId;
     private String username;
     private String password;
 

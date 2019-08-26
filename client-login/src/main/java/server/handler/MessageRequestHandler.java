@@ -15,9 +15,6 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageRequestPacket messageRequestPacket) {
 
-        System.out.println("收到客户端消息： ");
-        System.out.println("uid : [ " + messageRequestPacket.getToUserId()+ " ]");
-        System.out.println("message : [ " + messageRequestPacket.getMessage()+ " ]");
 
         /*
           构建消息响应 ： 将客户端的消息原封不动返回
