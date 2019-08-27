@@ -19,6 +19,7 @@ public class ConsoleCommandManager implements ConsoleCommand {
         consoleCommandMap.put("logout", new LogoutConsoleCommand());
         consoleCommandMap.put("createGroup", new CreateGroupConsoleCommand());
         consoleCommandMap.put("joinGroup", new JoinGroupConsoleCommand());
+        consoleCommandMap.put("listMembers", new ListGroupMembersConsoleCommand());
     }
     @Override
     public void exec(Scanner sc, Channel channel) {
@@ -30,7 +31,7 @@ public class ConsoleCommandManager implements ConsoleCommand {
         if (consoleCommand != null) {
             consoleCommand.exec(sc, channel);
         } else {
-            System.err.println("无法识别 [ " + cmd + " ] 指令， 请重新输入 [sendToUser 、 logout、createGroup、joinGroup]");
+            System.err.println("无法识别 [ " + cmd + " ] 指令， 请重新输入 [sendToUser 、 logout、createGroup、joinGroup、listMembers]");
         }
     }
 }
