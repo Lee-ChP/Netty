@@ -2,14 +2,8 @@ package utils;
 
 import io.netty.buffer.ByteBuf;
 import protocol.packet.Packet;
-import protocol.packet.request.CreateGroupRequestPacket;
-import protocol.packet.request.LoginRequestPacket;
-import protocol.packet.request.LogoutRequestPacket;
-import protocol.packet.request.MessageRequestPacket;
-import protocol.packet.response.CreateGroupResponsePacket;
-import protocol.packet.response.LoginResponsePacket;
-import protocol.packet.response.LogoutResponsePacket;
-import protocol.packet.response.MessageResponsePacket;
+import protocol.packet.request.*;
+import protocol.packet.response.*;
 import protocol.serialization.JSONSerializer;
 import protocol.serialization.Serializer;
 
@@ -38,6 +32,8 @@ public class PacketUtil {
         packetTypeMap.put(LOGOUT_RESPONSE, LogoutResponsePacket.class);
         packetTypeMap.put(CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
         packetTypeMap.put(CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
+        packetTypeMap.put(JOIN_GROUP_REQUEST, JoinGroupRequestPacket.class);
+        packetTypeMap.put(JOIN_GROUP_RESPONSE, JoinGroupResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();

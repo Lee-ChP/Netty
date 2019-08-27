@@ -1,9 +1,6 @@
 package client;
 
-import client.handler.CreateGroupResponseHandler;
-import client.handler.LoginResponseHandler;
-import client.handler.LogoutResponseHandler;
-import client.handler.MessageResponseHandler;
+import client.handler.*;
 import console.ConsoleCommand;
 import console.manager.ConsoleCommandManager;
 import console.manager.LoginConsoleCommand;
@@ -55,6 +52,7 @@ public class NettyClient {
                                 .addLast(new LogoutResponseHandler())
                                 .addLast(new MessageResponseHandler())
                                 .addLast(new CreateGroupResponseHandler())
+                                .addLast(new JoinGroupResponseHandler())
                                 .addLast(new PacketEncoder());
                     }
                 });
