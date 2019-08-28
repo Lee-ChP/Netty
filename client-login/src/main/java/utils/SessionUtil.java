@@ -49,4 +49,9 @@ public class SessionUtil {
     {
         return groupIdChannelGroupMap.get(groupId);
     }
+
+    public static void unbindChannelGroup(String groupId, Channel channel) {
+       ChannelGroup channelGroup = getChannelGroup(groupId);
+       channelGroup.remove(channel);
+    }
 }
