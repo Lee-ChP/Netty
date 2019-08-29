@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.packet.request.LogoutRequestPacket;
 import protocol.packet.response.LoginResponsePacket;
+import protocol.packet.response.LogoutResponsePacket;
 import utils.SessionUtil;
 
 /**
@@ -15,11 +16,15 @@ public class LogoutRequestHandler extends SimpleChannelInboundHandler<LogoutRequ
 
     public static final LogoutRequestHandler INSTANCE = new LogoutRequestHandler();
 
+    //单例模式 ： 构造函数不可对外
+    private LogoutRequestHandler() {
+
+    }
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LogoutRequestPacket logoutRequestPacket) throws Exception {
         SessionUtil.unBindSession(channelHandlerContext.channel());
-        LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
-        loginResponsePacket.setSuccess(true);
-        channelHandlerContext.channel().writeAndFlush(logoutRequestPacket);
+        LogoutResponsePacket logoutResponsePacket = new LogoutResponsePacket();
+        logoutResponsePacket.setSuccess(true);
+        channelHandlerContext.writeAndFlush(logoutResponsePacket);
     }
 }

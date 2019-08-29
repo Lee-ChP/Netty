@@ -10,6 +10,10 @@ import utils.SessionUtil;
 public class AuthHandler extends ChannelInboundHandlerAdapter {
 
     public static final AuthHandler INSTANCE = new AuthHandler();
+    //单例模式 ： 构造函数不可对外
+    private AuthHandler() {
+
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext context, Object msg) throws Exception {
@@ -23,12 +27,12 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
-    @Override
+   /* @Override
     public void handlerRemoved(ChannelHandlerContext ctx) {
         if (SessionUtil.hasLogin(ctx.channel())) {
             System.out.println("当前连接登录验证完毕，无需再次验证, AuthHandler 被移除");
         } else {
             System.out.println("无登录验证，强制关闭连接!");
         }
-    }
+    }*/
 }

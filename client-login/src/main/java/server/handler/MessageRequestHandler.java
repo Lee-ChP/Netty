@@ -18,6 +18,10 @@ import utils.SessionUtil;
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
 
     public static final MessageRequestHandler INSTANCE = new MessageRequestHandler();
+    //单例模式 ： 构造函数不可对外
+    private MessageRequestHandler() {
+
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageRequestPacket messageRequestPacket) {

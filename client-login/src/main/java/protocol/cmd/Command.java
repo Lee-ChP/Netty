@@ -25,5 +25,7 @@ public interface Command {
     Byte QUIT_GROUP_RESPONSE = 14;
     Byte SEND_TO_GROUP_REQUEST = 15;
     Byte SEND_TO_GROUP_RESPONSE = 16;
+    Byte HEARTBEAT_REQUEST = 17;
+    Byte HEARTBEAT_RESPONSE = 18;
 
 }

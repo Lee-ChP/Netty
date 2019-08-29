@@ -40,6 +40,8 @@ public class PacketUtil {
         packetTypeMap.put(QUIT_GROUP_RESPONSE, QuitGroupResponsePacket.class);
         packetTypeMap.put(SEND_TO_GROUP_REQUEST, SendToGroupRequestPacket.class);
         packetTypeMap.put(SEND_TO_GROUP_RESPONSE, SendToGroupResponsePacket.class);
+        packetTypeMap.put(HEARTBEAT_REQUEST, HeartBeatRequestPacket.class);
+        packetTypeMap.put(HEARTBEAT_RESPONSE, HeartBeatResponsePacket.class);
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();
         serializerMap.put(serializer.getSerializeAlgorithm(), serializer);

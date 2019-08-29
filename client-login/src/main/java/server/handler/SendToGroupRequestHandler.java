@@ -12,6 +12,10 @@ import utils.SessionUtil;
 public class SendToGroupRequestHandler extends SimpleChannelInboundHandler<SendToGroupRequestPacket> {
 
     public static final SendToGroupRequestHandler INSTANCE = new SendToGroupRequestHandler();
+    //单例模式 ： 构造函数不可对外
+    private SendToGroupRequestHandler() {
+
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, SendToGroupRequestPacket sendToGroupRequestPacket) throws Exception {

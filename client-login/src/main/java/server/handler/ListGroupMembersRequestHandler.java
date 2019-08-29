@@ -19,6 +19,10 @@ public class ListGroupMembersRequestHandler extends SimpleChannelInboundHandler<
 
     public static final ListGroupMembersRequestHandler INSTANCE = new ListGroupMembersRequestHandler();
 
+    //单例模式 ： 构造函数不可对外
+    private ListGroupMembersRequestHandler() {
+
+    }
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, ListGroupMembersRequestPacket listGroupMembersRequestPacket) throws Exception {
         String groupId = listGroupMembersRequestPacket.getGroupId();

@@ -26,6 +26,10 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
 
     public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
 
+    //单例模式 ： 构造函数不可对外
+    private LoginRequestHandler() {
+
+    }
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginRequestPacket loginRequestPacket){
         LoginResponsePacket loginResponsePacket = new LoginResponsePacket();

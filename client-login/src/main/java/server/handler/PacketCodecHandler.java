@@ -12,6 +12,10 @@ import java.util.List;
 @ChannelHandler.Sharable
 public class PacketCodecHandler extends MessageToMessageCodec<ByteBuf, Packet> {
     public static final PacketCodecHandler INSTANCE = new PacketCodecHandler();
+    //单例模式 ： 构造函数不可对外
+    private PacketCodecHandler() {
+
+    }
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Packet packet, List<Object> list) throws Exception {
 

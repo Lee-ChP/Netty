@@ -11,6 +11,10 @@ import utils.SessionUtil;
 public class QuitGroupRequestHandler extends SimpleChannelInboundHandler<QuitGroupRequestPacket> {
 
     public static final QuitGroupRequestHandler INSTANCE = new QuitGroupRequestHandler();
+    //单例模式 ： 构造函数不可对外
+    private QuitGroupRequestHandler() {
+
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, QuitGroupRequestPacket quitGroupRequestPacket) throws Exception {

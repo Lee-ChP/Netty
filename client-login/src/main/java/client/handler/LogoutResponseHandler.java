@@ -8,6 +8,11 @@ import utils.SessionUtil;
 public class LogoutResponseHandler extends SimpleChannelInboundHandler<LogoutResponsePacket> {
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LogoutResponsePacket logoutResponsePacket) throws Exception {
-        SessionUtil.unBindSession(channelHandlerContext.channel());
+        if(logoutResponsePacket.isSuccess()) {
+            SessionUtil.unBindSession(channelHandlerContext.channel());
+            System.out.println("退出成功！");
+        } else {
+            System.out.println("退出失败！");
+        }
     }
 }

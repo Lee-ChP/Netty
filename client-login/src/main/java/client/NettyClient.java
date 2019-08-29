@@ -17,6 +17,7 @@ import protocol.packet.codec.PacketDecoder;
 import protocol.packet.codec.PacketEncoder;
 import protocol.packet.request.LoginRequestPacket;
 import protocol.packet.request.MessageRequestPacket;
+import server.handler.IMIdleStateHandler;
 import utils.SessionUtil;
 
 import java.util.Date;
@@ -45,6 +46,7 @@ public class NettyClient {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) {
                         socketChannel.pipeline()
+                                .addLast(new IMIdleStateHandler()) //空闲检测
                                 .addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4))  //粘包
                                 .addLast(new PacketDecoder())
                                 //.addLast(new LoginRequestHandler())
@@ -56,7 +58,9 @@ public class NettyClient {
                                 .addLast(new ListGroupMembersResponseHandler())
                                 .addLast(new SendToGroupResponseHandler())
                                 .addLast(new QuitGroupResponseHandler())
-                                .addLast(new PacketEncoder());
+                                .addLast(new PacketEncoder())
+                                .addLast(new HeartBeatTimeHandler()); //心态定时器
+
                     }
                 });
         connect(bootstrap, HOST, PORT, MAX_RETRY);
@@ -67,7 +71,7 @@ public class NettyClient {
             if (future.isSuccess()) {
                 System.out.println(new Date() + " : 连接服务器成功......");
                 Channel channel = ((ChannelFuture) future).channel();
-                startConsoleThread(channel);
+                startConsoleThread(channel).start();
             } else if (retry == 0) {
                 System.err.println("重连次数用完，放弃连接！");
             } else {
@@ -81,12 +85,12 @@ public class NettyClient {
 
 
     //启动控制台线程从控制台获取消息
-    private static void startConsoleThread(Channel channel) {
+    private static Thread startConsoleThread(Channel channel) {
         ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
         LoginConsoleCommand loginCMD = new LoginConsoleCommand();
         Scanner scanner = new Scanner(System.in);
         //标识为true则开启控制台
-        new Thread(() -> {
+       return new Thread(() -> {
             while (!Thread.interrupted()) {
                 //如果未登录，则登录
                 if (!SessionUtil.hasLogin(channel)) {
@@ -95,7 +99,8 @@ public class NettyClient {
                     consoleCommandManager.exec(scanner, channel);
                 }
             }
-        }).start();
+        });/*.start();*/
     }
+
 }
 

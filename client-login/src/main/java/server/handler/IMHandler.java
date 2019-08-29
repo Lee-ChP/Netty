@@ -18,11 +18,11 @@ public class IMHandler extends SimpleChannelInboundHandler<Packet> {
     public static final IMHandler INSTANCE = new IMHandler();
 
     private Map<Byte, SimpleChannelInboundHandler<? extends Packet>> handlerMap;
-
+    //单例模式 ： 构造函数不可对外
     private IMHandler() {
         handlerMap = new HashMap<>();
         handlerMap.put(MESSAGE_REQUEST, MessageRequestHandler.INSTANCE);
-        handlerMap.put(LOGOUT_REQUEST, LoginRequestHandler.INSTANCE);
+        handlerMap.put(LOGOUT_REQUEST, LogoutRequestHandler.INSTANCE);
         handlerMap.put(CREATE_GROUP_REQUEST, CreateGroupRequestHandler.INSTANCE);
         handlerMap.put(JOIN_GROUP_REQUEST, JoinGroupRequestHandler.INSTANCE);
         handlerMap.put(LIST_GROUP_MEMBERS_REQUEST, ListGroupMembersRequestHandler.INSTANCE);

@@ -40,12 +40,13 @@ public class NettyServer {
                         ch.pipeline().addLast(new OutHandlerA());
                         ch.pipeline().addLast(new OutHandlerB());
                         ch.pipeline().addLast(new OutHandlerC());*/
+                        ch.pipeline().addLast(new IMIdleStateHandler());
                         ch.pipeline().addLast(new Spliter()); //拆包
                         ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                         //ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(HeartBeatRequestHandler.INSTANCE); // 心态检测，不需要验证，所以放在AuthHandler之前
                         //添加登录校验handler，后续handler每一次执行都需要调用一次
-
                         ch.pipeline().addLast( AuthHandler.INSTANCE);
                         ch.pipeline().addLast(IMHandler.INSTANCE);
                        /* ch.pipeline().addLast( MessageRequestHandler.INSTANCE);

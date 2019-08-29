@@ -22,6 +22,10 @@ import java.util.List;
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
 
     public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+    //单例模式 ： 构造函数不可对外
+    private CreateGroupRequestHandler() {
+
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, CreateGroupRequestPacket createGroupRequestPacket) throws Exception {

@@ -14,6 +14,10 @@ public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGro
 
     public static final JoinGroupRequestHandler INSTANCE = new JoinGroupRequestHandler();
 
+    //单例模式 ： 构造函数不可对外
+    private JoinGroupRequestHandler() {
+
+    }
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, JoinGroupRequestPacket joinGroupRequestPacket) throws Exception {
         String groupId = joinGroupRequestPacket.getGroupId();
