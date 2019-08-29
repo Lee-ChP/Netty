@@ -1,6 +1,7 @@
 package server.handler;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -13,7 +14,15 @@ import utils.SessionUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 1： 无状态handler，可以被共享，构造单例模式
+ */
+
+@ChannelHandler.Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+
+    public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, CreateGroupRequestPacket createGroupRequestPacket) throws Exception {
         List<String> userIdList = createGroupRequestPacket.getUserIdList();

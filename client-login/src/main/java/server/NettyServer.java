@@ -41,19 +41,21 @@ public class NettyServer {
                         ch.pipeline().addLast(new OutHandlerB());
                         ch.pipeline().addLast(new OutHandlerC());*/
                         ch.pipeline().addLast(new Spliter()); //拆包
-                        ch.pipeline().addLast(new PacketDecoder());
-                        ch.pipeline().addLast(new LoginRequestHandler());
+                        ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
+                        //ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
                         //添加登录校验handler，后续handler每一次执行都需要调用一次
 
-                        ch.pipeline().addLast(new AuthHandler());
-                        ch.pipeline().addLast(new MessageRequestHandler());
-                        ch.pipeline().addLast(new CreateGroupRequestHandler());
-                        ch.pipeline().addLast(new JoinGroupRequestHandler());
-                        ch.pipeline().addLast(new ListGroupMembersRequestHandler());
-                        ch.pipeline().addLast(new QuitGroupRequestHandler());
-                        ch.pipeline().addLast(new SendToGroupRequestHandler());
-                        ch.pipeline().addLast(new LogoutRequestHandler());
-                        ch.pipeline().addLast(new PacketEncoder());
+                        ch.pipeline().addLast( AuthHandler.INSTANCE);
+                        ch.pipeline().addLast(IMHandler.INSTANCE);
+                       /* ch.pipeline().addLast( MessageRequestHandler.INSTANCE);
+                        ch.pipeline().addLast( CreateGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast( JoinGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast( ListGroupMembersRequestHandler.INSTANCE);
+                        ch.pipeline().addLast( QuitGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast( SendToGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast( LogoutRequestHandler.INSTANCE);*/
+                        //ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 

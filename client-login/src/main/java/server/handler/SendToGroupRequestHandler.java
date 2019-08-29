@@ -1,5 +1,6 @@
 package server.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -7,7 +8,11 @@ import protocol.packet.request.SendToGroupRequestPacket;
 import protocol.packet.response.SendToGroupResponsePacket;
 import utils.SessionUtil;
 
+@ChannelHandler.Sharable
 public class SendToGroupRequestHandler extends SimpleChannelInboundHandler<SendToGroupRequestPacket> {
+
+    public static final SendToGroupRequestHandler INSTANCE = new SendToGroupRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, SendToGroupRequestPacket sendToGroupRequestPacket) throws Exception {
         String groupId = sendToGroupRequestPacket.getGroupId();

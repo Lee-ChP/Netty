@@ -1,11 +1,16 @@
 package server.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import utils.LoginUtil;
 import utils.SessionUtil;
 
+@ChannelHandler.Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter {
+
+    public static final AuthHandler INSTANCE = new AuthHandler();
+
     @Override
     public void channelRead(ChannelHandlerContext context, Object msg) throws Exception {
 

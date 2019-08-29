@@ -1,6 +1,7 @@
 package server.handler;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.packet.request.MessageRequestPacket;
@@ -11,10 +12,15 @@ import utils.SessionUtil;
 /**
  * 发送消息 ： 获取接收方的channel， 将自己的基本用户信息打包进消息中发送过去
  */
+
+@ChannelHandler.Sharable
+
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
+
+    public static final MessageRequestHandler INSTANCE = new MessageRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageRequestPacket messageRequestPacket) {
-
 
         /*
           构建消息响应 ： 将客户端的消息原封不动返回
