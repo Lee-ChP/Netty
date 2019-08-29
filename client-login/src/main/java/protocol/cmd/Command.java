@@ -1,6 +1,5 @@
 package protocol.cmd;
 
-import io.netty.buffer.ByteBuf;
 
 /**
  * 协议头部信息 —— 指令
@@ -24,4 +23,7 @@ public interface Command {
     Byte LIST_GROUP_MEMBERS_RESPONSE = 12;
     Byte QUIT_GROUP_REQUEST = 13;
     Byte QUIT_GROUP_RESPONSE = 14;
+    Byte SEND_TO_GROUP_REQUEST = 15;
+    Byte SEND_TO_GROUP_RESPONSE = 16;
+
 }

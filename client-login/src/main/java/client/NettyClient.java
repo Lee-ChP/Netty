@@ -54,6 +54,7 @@ public class NettyClient {
                                 .addLast(new CreateGroupResponseHandler())
                                 .addLast(new JoinGroupResponseHandler())
                                 .addLast(new ListGroupMembersResponseHandler())
+                                .addLast(new SendToGroupResponseHandler())
                                 .addLast(new QuitGroupResponseHandler())
                                 .addLast(new PacketEncoder());
                     }
